@@ -8,6 +8,7 @@ services:
     expose:
       - "5901" # VNC port (internal only)
       - "6901" # Web VNC port (internal only)
+      - "5000" # Agent API port (ADD THIS LINE)
     environment:
       - VNC_PW=bakku-the-wizard
       - VNC_PASSWORD=bakku-the-wizard
@@ -143,8 +144,8 @@ services:
   # KIND Kubernetes Cluster
   k8s-api-server: # Service name that will be used for DNS resolution
     image: nishanb/ck-x-simulator-cluster:latest
-    build:
-      context: ./kind-cluster
+    # build:
+    #   context: ./kind-cluster
     container_name: kind-cluster
     hostname: k8s-api-server
     privileged: true # Required for running containers inside KIND

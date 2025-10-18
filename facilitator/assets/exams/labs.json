@@ -21,6 +21,16 @@
         "examDurationInMinutes": 120
       },
       {
+        "id": "ckad-003",
+        "assetPath": "assets/exams/ckad/003",
+        "name": "CKAD Killer Shell Simulator - Complete",
+        "category": "CKAD",
+        "description": "Complete Killer Shell simulator with 25 questions covering all CKAD exam topics including pods, deployments, services, storage, networking, security, and troubleshooting. Includes 22 main questions plus 3 preview questions.",
+        "warmUpTimeInSeconds": 360,
+        "difficulty": "Hard",
+        "examDurationInMinutes": 120
+      },
+      {
         "id": "cks-001",
         "assetPath": "assets/exams/cks/001",
         "name": "CKS Practice Lab - Kubernetes Security Essentials",

@@ -1,0 +1,495 @@
+{
+  "questions": [
+    {
+      "id": "1",
+      "namespace": "N/A",
+      "machineHostname": "ckad9999",
+      "question": "The DevOps team would like to get the list of all Namespaces in the cluster.\n\nThe list can contain other columns like STATUS or AGE.\n\nSave the list to `/tmp/exam/1/namespaces`.",
+      "concepts": ["kubectl basics", "namespaces", "output redirection"],
+      "verification": [
+        {
+          "id": "1",
+          "description": "Namespaces list file exists with correct content",
+          "verificationScriptFile": "q1_s1_validate_namespaces.sh",
+          "expectedOutput": "0",
+          "weightage": 4
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "namespace": "default",
+      "machineHostname": "ckad9999",
+      "question": "Create a single Pod named `pod1` in the `default` namespace.\n\nThe Pod should use image `httpd:2.4.41-alpine` and the container should be named `pod1-container`.",
+      "concepts": ["pod creation", "container naming"],
+      "verification": [
+        {
+          "id": "1",
+          "description": "Pod exists with correct configuration",
+          "verificationScriptFile": "q2_s1_validate_pod.sh",
+          "expectedOutput": "0",
+          "weightage": 4
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "namespace": "neptune",
+      "machineHostname": "ckad9999",
+      "question": "In Namespace `neptune`, create a Job named `neb-new-job` that runs image `busybox:1.31.0`.\n\nThe Job should execute the command: `sleep 2 && echo done`\n\nIt should be created from the yaml template available at `/tmp/exam/3/job.yaml`.\n\nEdit and apply the yaml template to create the Job.",
+      "concepts": ["jobs", "batch processing"],
+      "verification": [
+        {
+          "id": "1",
+          "description": "Job exists and completes successfully",
+          "verificationScriptFile": "q3_s1_validate_job.sh",
+          "expectedOutput": "0",
+          "weightage": 6
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "namespace": "mercury",
+      "machineHostname": "ckad9999",
+      "question": "Team Mercury needs to perform Helm operations on their namespace.\n\n1. Uninstall the Helm release named `internal-issue-report-apiv1` from namespace `mercury`\n\n2. Upgrade the Helm release named `internal-issue-report-apiv2` to version 2.0.0 in namespace `mercury`\n\nNote: There is a Helm repository already configured named `killershell` available at `http://localhost:6000`.",
+      "concepts": ["helm", "helm releases", "package management"],
+      "verification": [
+        {
+          "id": "1",
+          "description": "First Helm release is uninstalled",
+          "verificationScriptFile": "q4_s1_validate_helm_uninstall.sh",
+          "expectedOutput": "0",
+          "weightage": 3
+        },
+        {
+          "id": "2",
+          "description": "Second Helm release is upgraded correctly",
+          "verificationScriptFile": "q4_s2_validate_helm_upgrade.sh",
+          "expectedOutput": "0",
+          "weightage": 3
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "namespace": "neptune",
+      "machineHostname": "ckad9999",
+      "question": "In Namespace `neptune`, there is a ServiceAccount named `neptune-sa-v2`.\n\nExtract the token from the Secret associated with this ServiceAccount and save it to `/tmp/exam/5/token`.\n\nNote: ServiceAccounts automatically create associated Secrets that contain tokens.",
+      "concepts": ["serviceaccounts", "secrets", "token extraction"],
+      "verification": [
+        {
+          "id": "1",
+          "description": "Token file exists with valid token",
+          "verificationScriptFile": "q5_s1_validate_token.sh",
+          "expectedOutput": "0",
+          "weightage": 6
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "namespace": "default",
+      "machineHostname": "ckad9999",
+      "question": "Create a Pod named `pod6` in the `default` namespace using image `busybox:1.31.0`.\n\nThe Pod should have a readiness probe that:\n- Executes the command: `cat /tmp/ready`\n- Has an initialDelaySeconds of 5\n- Has a periodSeconds of 10\n\nThe container should run the command: `touch /tmp/ready && sleep 1d`",
+      "concepts": ["readiness probes", "health checks", "pod lifecycle"],
+      "verification": [
+        {
+          "id": "1",
+          "description": "Pod exists with correct readiness probe configuration",
+          "verificationScriptFile": "q6_s1_validate_probe.sh",
+          "expectedOutput": "0",
+          "weightage": 6
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "namespace": "saturn",
+      "machineHostname": "ckad9999",
+      "question": "The webserver `my-happy-shop` is currently running in namespace `saturn`.\n\nTeam Saturn needs to move this webserver to namespace `neptune` for better organization.\n\n1. Get the yaml of the existing Pod `my-happy-shop` from namespace `saturn`\n2. Modify it to run in namespace `neptune`\n3. Delete the old Pod from `saturn`\n4. Create the new Pod in `neptune`",
+      "concepts": ["namespaces", "resource migration", "pod management"],
+      "verification": [
+        {
+          "id": "1",
+          "description": "Pod no longer exists in saturn namespace",
+          "verificationScriptFile": "q7_s1_validate_old_pod_deleted.sh",
+          "expectedOutput": "0",
+          "weightage": 2
+        },
+        {
+          "id": "2",
+          "description": "Pod exists in neptune namespace with same configuration",
+          "verificationScriptFile": "q7_s2_validate_new_pod.sh",
+          "expectedOutput": "0",
+          "weightage": 4
+        }
+      ]
+    },
+    {
+      "id": "8",
+      "namespace": "neptune",
+      "machineHostname": "ckad9999",
+      "question": "In namespace `neptune`, there is a Deployment named `neptune-deployment`.\n\n1. Check the history of this Deployment to find the revision number that introduced a specific change\n2. Rollback the Deployment to revision 1\n3. Update the Deployment to use image `httpd:2.4.41-alpine`\n4. Scale the Deployment to 4 replicas",
+      "concepts": ["deployments", "rollouts", "rollbacks", "scaling"],
+      "verification": [
+        {
+          "id": "1",
+          "description": "Deployment is at correct revision",
+          "verificationScriptFile": "q8_s1_validate_revision.sh",
+          "expectedOutput": "0",
+          "weightage": 2
+        },
+        {
+          "id": "2",
+          "description": "Deployment has correct image and replicas",
+          "verificationScriptFile": "q8_s2_validate_deployment.sh",
+          "expectedOutput": "0",
+          "weightage": 4
+        }
+      ]
+    },
+    {
+      "id": "9",
+      "namespace": "pluto",
+      "machineHostname": "ckad9999",
+      "question": "In namespace `pluto`, create a Deployment named `project-plt-6cc-api`.\n\nDeployment specifications:\n- Image: `nginx:1.17.3-alpine`\n- Replicas: 1\n- Container name: `api`\n- Security Context for container: Run as user 10000 and group 20000, Capabilities: drop ALL\n- Resource Limits: memory 20Mi\n- Resource Requests: memory 20Mi",
+      "concepts": ["deployments", "security context", "resource management"],
+      "verification": [
+        {
+          "id": "1",
+          "description": "Deployment exists with correct configuration",
+          "verificationScriptFile": "q9_s1_validate_deployment_basic.sh",
+          "expectedOutput": "0",
+          "weightage": 2
+        },
+        {
+          "id": "2",
+          "description": "Security context is correctly configured",
+          "verificationScriptFile": "q9_s2_validate_security_context.sh",
+          "expectedOutput": "0",
+          "weightage": 4
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "namespace": "pluto",
+      "machineHostname": "ckad9999",
+      "question": "In namespace `pluto`, there is a Deployment named `project-earthflower`.\n\n1. Create a ClusterIP Service named `project-plt-6cc-svc` that exposes this Deployment on port 3333, targeting port 80\n2. Get the logs from one of the Deployment's Pods and save them to `/tmp/exam/10/logs`",
+      "concepts": ["services", "clusterip", "logging"],
+      "verification": [
+        {
+          "id": "1",
+          "description": "Service exists with correct configuration",
+          "verificationScriptFile": "q10_s1_validate_service.sh",
+          "expectedOutput": "0",
+          "weightage": 4
+        },
+        {
+          "id": "2",
+          "description": "Logs file exists",
+          "verificationScriptFile": "q10_s2_validate_logs.sh",
+          "expectedOutput": "0",
+          "weightage": 2
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "namespace": "default",
+      "machineHostname": "ckad9999",
+      "question": "In the `default` namespace, there is a Pod named `holy-api` running.\n\n1. Get the name of the container running in this Pod and save it to `/tmp/exam/11/container-name`\n2. Execute the command `date` inside the running container and save the output to `/tmp/exam/11/date-output`",
+      "concepts": ["kubectl exec", "container operations", "debugging"],
+      "verification": [
+        {
+          "id": "1",
+          "description": "Container name file is correct",
+          "verificationScriptFile": "q11_s1_validate_container_name.sh",
+          "expectedOutput": "0",
+          "weightage": 2
+        },
+        {
+          "id": "2",
+          "description": "Date output file exists",
+          "verificationScriptFile": "q11_s2_validate_date_output.sh",
+          "expectedOutput": "0",
+          "weightage": 4
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "namespace": "earth",
+      "machineHostname": "ckad9999",
+      "question": "In namespace `earth`, create a PersistentVolume named `earth-project-earthflower-pv`.\n\nPersistentVolume specifications:\n- Capacity: 2Gi\n- Access Mode: ReadWriteOnce\n- Host Path: /tmp/exam-pv\n- Storage Class Name: shared-host-path\n\nThen create a PersistentVolumeClaim named `earth-project-earthflower-pvc` in namespace `earth`.\n\nPersistentVolumeClaim specifications:\n- Request: 2Gi\n- Access Mode: ReadWriteOnce\n- Storage Class Name: shared-host-path",
+      "concepts": ["persistent volumes", "persistent volume claims", "storage"],
+      "verification": [
+        {
+          "id": "1",
+          "description": "PersistentVolume exists with correct configuration",
+          "verificationScriptFile": "q12_s1_validate_pv.sh",
+          "expectedOutput": "0",
+          "weightage": 3
+        },
+        {
+          "id": "2",
+          "description": "PersistentVolumeClaim exists and is bound",
+          "verificationScriptFile": "q12_s2_validate_pvc.sh",
+          "expectedOutput": "0",
+          "weightage": 3
+        }
+      ]
+    },
+    {
+      "id": "13",
+      "namespace": "moon",
+      "machineHostname": "ckad9999",
+      "question": "In namespace `moon`, create a PersistentVolumeClaim named `moon-pvc-126`.\n\nPersistentVolumeClaim specifications:\n- Storage Class: moon-retain\n- Access Mode: ReadWriteOnce\n- Storage Request: 3Gi\n\nEnsure the PVC binds successfully. If no suitable PV exists, create one that matches the requirements.",
+      "concepts": ["persistent volume claims", "storage classes", "dynamic provisioning"],
+      "verification": [
+        {
+          "id": "1",
+          "description": "PersistentVolumeClaim exists and is bound",
+          "verificationScriptFile": "q13_s1_validate_pvc.sh",
+          "expectedOutput": "0",
+          "weightage": 6
+        }
+      ]
+    },
+    {
+      "id": "14",
+      "namespace": "moon",
+      "machineHostname": "ckad9999",
+      "question": "In namespace `moon`, there is a Secret named `secret-handler` with the following keys:\n- `user`\n- `pass`\n- `id`\n\nCreate a Pod named `secret-handler` using image `bash:5.0.11`.\n\nThe Pod should:\n1. Make the secret available as environment variables:\n   - SECRET_USER from key `user`\n   - SECRET_PASS from key `pass`\n2. Mount the secret key `id` to path `/tmp/secret-id`\n3. Run the command: `bash -c 'sleep 1d'`",
+      "concepts": ["secrets", "environment variables", "volume mounts"],
+      "verification": [
+        {
+          "id": "1",
+          "description": "Pod exists with environment variables configured",
+          "verificationScriptFile": "q14_s1_validate_env_vars.sh",
+          "expectedOutput": "0",
+          "weightage": 3
+        },
+        {
+          "id": "2",
+          "description": "Secret is mounted correctly as file",
+          "verificationScriptFile": "q14_s2_validate_mount.sh",
+          "expectedOutput": "0",
+          "weightage": 3
+        }
+      ]
+    },
+    {
+      "id": "15",
+      "namespace": "moon",
+      "machineHostname": "ckad9999",
+      "question": "In namespace `moon`, there is a ConfigMap named `configmap-web-moon-html`.\n\nCreate a Pod named `web-moon` using image `nginx:1.17.3-alpine`.\n\nThe Pod should mount the ConfigMap as a volume at path `/usr/share/nginx/html` so that the nginx server serves the content from the ConfigMap.",
+      "concepts": ["configmaps", "volume mounts", "nginx configuration"],
+      "verification": [
+        {
+          "id": "1",
+          "description": "Pod exists and ConfigMap is mounted correctly",
+          "verificationScriptFile": "q15_s1_validate_configmap_mount.sh",
+          "expectedOutput": "0",
+          "weightage": 6
+        }
+      ]
+    },
+    {
+      "id": "16",
+      "namespace": "mercury",
+      "machineHostname": "ckad9999",
+      "question": "In namespace `mercury`, there is a Deployment named `check-ip`.\n\nThe logs for this Deployment should be collected and saved.\n\n1. Add a sidecar container named `logger` to the Deployment's Pod template\n2. The sidecar should use image `busybox:1.31.0`\n3. The sidecar should run the command: `sh -c 'tail -f /var/log/check-ip.log'`\n4. Both containers should share a volume named `logger-volume` mounted at `/var/log`\n5. The main container should write logs to `/var/log/check-ip.log`\n\nSave the updated Deployment yaml to `/tmp/exam/16/check-ip-deployment.yaml` and apply it.",
+      "concepts": ["sidecar pattern", "multi-container pods", "logging", "shared volumes"],
+      "verification": [
+        {
+          "id": "1",
+          "description": "Deployment has sidecar container configured",
+          "verificationScriptFile": "q16_s1_validate_sidecar.sh",
+          "expectedOutput": "0",
+          "weightage": 6
+        }
+      ]
+    },
+    {
+      "id": "17",
+      "namespace": "default",
+      "machineHostname": "ckad9999",
+      "question": "Create a Pod named `holy-api-v2` in the `default` namespace.\n\nThe Pod should have:\n1. An initContainer named `init-container` that:\n   - Uses image `busybox:1.31.0`\n   - Runs the command: `sh -c 'echo Init done > /tmp/init-done.txt'`\n   - Mounts a volume named `workdir` at `/tmp`\n\n2. A main container named `main-container` that:\n   - Uses image `nginx:1.17.3-alpine`\n   - Mounts the same volume `workdir` at `/tmp`\n\nThe volume should be an emptyDir.",
+      "concepts": ["init containers", "pod lifecycle", "volume sharing"],
+      "verification": [
+        {
+          "id": "1",
+          "description": "Pod has init container and main container configured correctly",
+          "verificationScriptFile": "q17_s1_validate_init_container.sh",
+          "expectedOutput": "0",
+          "weightage": 6
+        }
+      ]
+    },
+    {
+      "id": "18",
+      "namespace": "mars",
+      "machineHostname": "ckad9999",
+      "question": "In namespace `mars`, create a Deployment named `manager-mars-api`.\n\nDeployment specifications:\n- Image: `httpd:2.4-alpine`\n- Replicas: 3\n\nThen create a Service named `manager-api-svc` that:\n- Type: NodePort\n- Port: 4444 (Service port)\n- Target Port: 80 (Container port)\n- NodePort: 30080 (fixed NodePort)\n- Selector: Should match the Deployment's Pods",
+      "concepts": ["deployments", "services", "nodeport"],
+      "verification": [
+        {
+          "id": "1",
+          "description": "Deployment exists with correct configuration",
+          "verificationScriptFile": "q18_s1_validate_deployment.sh",
+          "expectedOutput": "0",
+          "weightage": 3
+        },
+        {
+          "id": "2",
+          "description": "NodePort Service is configured correctly",
+          "verificationScriptFile": "q18_s2_validate_service.sh",
+          "expectedOutput": "0",
+          "weightage": 3
+        }
+      ]
+    },
+    {
+      "id": "19",
+      "namespace": "jupiter",
+      "machineHostname": "ckad9999",
+      "question": "In namespace `jupiter`, there are several Services and Deployments.\n\n1. Create a temporary Pod using image `busybox:1.31.0` with the command `wget -O- service-name:port`\n2. Test the connectivity to Service `manager-api-svc` on port 4444 and save the output to `/tmp/exam/19/service-test`\n3. Get the ClusterIP of the Service and save it to `/tmp/exam/19/cluster-ip`",
+      "concepts": ["services", "networking", "service discovery", "debugging"],
+      "verification": [
+        {
+          "id": "1",
+          "description": "Service test output exists",
+          "verificationScriptFile": "q19_s1_validate_service_test.sh",
+          "expectedOutput": "0",
+          "weightage": 3
+        },
+        {
+          "id": "2",
+          "description": "ClusterIP file exists with correct IP",
+          "verificationScriptFile": "q19_s2_validate_cluster_ip.sh",
+          "expectedOutput": "0",
+          "weightage": 3
+        }
+      ]
+    },
+    {
+      "id": "20",
+      "namespace": "venus",
+      "machineHostname": "ckad9999",
+      "question": "In namespace `venus`, there are two Deployments: `api` and `frontend`.\n\nCreate a NetworkPolicy named `np1` that:\n1. Applies to Pods with label `component: frontend`\n2. Allows ingress traffic from Pods with label `component: api` on port 80\n3. Denies all other ingress traffic\n\nNote: The Deployments are already labeled appropriately.",
+      "concepts": ["network policies", "pod communication", "security"],
+      "verification": [
+        {
+          "id": "1",
+          "description": "NetworkPolicy exists with correct configuration",
+          "verificationScriptFile": "q20_s1_validate_network_policy.sh",
+          "expectedOutput": "0",
+          "weightage": 6
+        }
+      ]
+    },
+    {
+      "id": "21",
+      "namespace": "neptune",
+      "machineHostname": "ckad9999",
+      "question": "In namespace `neptune`, create a Deployment named `neptune-10ab`.\n\nDeployment specifications:\n- Image: `httpd:2.4-alpine`\n- Replicas: 3\n- Container name: `neptune-pod-10ab`\n- ServiceAccount: `neptune-sa-v2` (already exists)\n- Resource Requests:\n  - Memory: 20Mi\n- Resource Limits:\n  - Memory: 50Mi",
+      "concepts": ["deployments", "resource management", "service accounts"],
+      "verification": [
+        {
+          "id": "1",
+          "description": "Deployment exists with correct basic configuration",
+          "verificationScriptFile": "q21_s1_validate_deployment_basic.sh",
+          "expectedOutput": "0",
+          "weightage": 2
+        },
+        {
+          "id": "2",
+          "description": "Resource limits and requests are configured correctly",
+          "verificationScriptFile": "q21_s2_validate_resources.sh",
+          "expectedOutput": "0",
+          "weightage": 4
+        }
+      ]
+    },
+    {
+      "id": "22",
+      "namespace": "sun",
+      "machineHostname": "ckad9999",
+      "question": "In namespace `sun`, there are many Pods with different labels.\n\n1. Add the label `protected: true` to all Pods that have label `type: worker` or `type: runner`\n2. Save the list of Pods with label `protected=true` to `/tmp/exam/22/protected-pods`\n\nNote: The Pods already exist with various labels including `type=worker`, `type=runner`, `type=test`, etc.",
+      "concepts": ["labels", "label selectors", "bulk operations"],
+      "verification": [
+        {
+          "id": "1",
+          "description": "Correct Pods have the protected label",
+          "verificationScriptFile": "q22_s1_validate_labels.sh",
+          "expectedOutput": "0",
+          "weightage": 4
+        },
+        {
+          "id": "2",
+          "description": "Protected pods list file is correct",
+          "verificationScriptFile": "q22_s2_validate_list.sh",
+          "expectedOutput": "0",
+          "weightage": 2
+        }
+      ]
+    },
+    {
+      "id": "23",
+      "namespace": "pluto",
+      "machineHostname": "ckad9999",
+      "question": "PREVIEW QUESTION 1: Liveness Probe\n\nIn namespace `pluto`, there is a Deployment named `project-23-api`.\n\nTeam Pluto needs it to be more reliable. Implement a liveness probe which checks the container to be reachable on port 80.\n\n1. Get the current Deployment yaml and save to `/tmp/exam/23/project-23-api.yaml`\n2. Add a TCP liveness probe on port 80 with:\n   - initialDelaySeconds: 10\n   - periodSeconds: 15\n3. Save the modified yaml to `/tmp/exam/23/project-23-api-new.yaml`\n4. Apply the changes",
+      "concepts": ["liveness probes", "tcp checks", "deployment modification"],
+      "verification": [
+        {
+          "id": "1",
+          "description": "Deployment has liveness probe configured correctly",
+          "verificationScriptFile": "q23_s1_validate_liveness_probe.sh",
+          "expectedOutput": "0",
+          "weightage": 6
+        }
+      ]
+    },
+    {
+      "id": "24",
+      "namespace": "sun",
+      "machineHostname": "ckad9999",
+      "question": "PREVIEW QUESTION 2: Create Deployment with ServiceAccount\n\nIn namespace `sun`, create a Deployment named `sunny`.\n\nDeployment specifications:\n- Image: `nginx:1.17.3-alpine`\n- Replicas: 4\n- ServiceAccount: `sa-sun-deploy` (already exists)\n\nAfter creating the Deployment, execute the verification script at `/tmp/exam/24/sunny_status_command.sh`.",
+      "concepts": ["deployments", "service accounts", "verification"],
+      "verification": [
+        {
+          "id": "1",
+          "description": "Deployment exists with correct configuration",
+          "verificationScriptFile": "q24_s1_validate_deployment.sh",
+          "expectedOutput": "0",
+          "weightage": 6
+        }
+      ]
+    },
+    {
+      "id": "25",
+      "namespace": "earth",
+      "machineHostname": "ckad9999",
+      "question": "PREVIEW QUESTION 3: Service Troubleshooting\n\nIn namespace `earth`, there is a Service named `earth-3cc-web` that is not working correctly after a rollout.\n\nMultiple Services exist in the namespace:\n- earth-2x3-api-svc\n- earth-2x3-web-svc\n- earth-3cc-api-svc\n- earth-3cc-web\n\n1. Identify why the Service `earth-3cc-web` is broken\n2. Fix the Service\n3. Write the reason for the issue to `/tmp/exam/25/ticket-654.txt`\n\nHint: Check the Service selector and Pod labels for mismatches.",
+      "concepts": ["services", "troubleshooting", "endpoints", "selectors"],
+      "verification": [
+        {
+          "id": "1",
+          "description": "Service is fixed and working",
+          "verificationScriptFile": "q25_s1_validate_service_fix.sh",
+          "expectedOutput": "0",
+          "weightage": 3
+        },
+        {
+          "id": "2",
+          "description": "Reason file exists with correct explanation",
+          "verificationScriptFile": "q25_s2_validate_reason.sh",
+          "expectedOutput": "0",
+          "weightage": 3
+        }
+      ]
+    }
+  ]
+}
